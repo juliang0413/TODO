@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-header text-center">
+    <h5>My Tasks</h5>
+  </div>
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="New Task..." aria-label="New Task..."
+             aria-describedby="new task" #taskInput>
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="button" (click)="saveTask(taskInput)">Save</button>
+      </div>
+    </div>
+    <ul class="list-group">
+      <li *ngFor="let task of tasks; let index = index" class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="task-checkbox">
+          <input type="checkbox" id="check-{{index}}"
+                 class="list-child"
+                 (change)="onTaskChange(index)"
+                 [checked]="task.completed">
+          <label for="check-{{index}}" ngClass="{{task.completed ? 'name task-completed' : 'name'}}">
+            {{ task.name }}</label>
+        </div>
+        <button class="btn-outline-primary" (click)="deleteTask(task.id)">X</button>
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer text-muted text-center">
+    <button type="button" class="btn btn-outline-primary disabled btn-footer" disabled>
+      Completed <span class="badge badge-primary">{{ tasks | countTask:true }}</span>
+      <span class="sr-only">Tasks completed</span>
+    </button>
+    <button type="button" class="btn btn-outline-warning disabled btn-footer" disabled>
+      Pending <span class="badge badge-warning">{{ tasks | countTask }}</span>
+      <span class="sr-only">Tasks pending</span>
+    </button>
+  </div>
+</div>
